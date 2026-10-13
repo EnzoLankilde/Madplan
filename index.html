@@ -73,6 +73,7 @@ li.checked .what,li.checked .qty{color:var(--done);text-decoration:line-through}
 .cat{margin-top:14px}
 .cat.pantry{background:var(--surface);border:1px dashed var(--line);border-radius:12px;padding:4px 14px 6px}
 .reset{font:600 .82rem var(--display);background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:6px 12px;cursor:pointer}
+.bring{display:inline-block;font:600 .9rem var(--display);background:var(--accent);color:var(--bg);text-decoration:none;border-radius:999px;padding:8px 14px}
 .sync{font-size:.82rem;color:var(--muted);margin:0 0 12px}
 /* recipes */
 details.rec{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;scroll-margin-top:72px}
@@ -345,6 +346,12 @@ function renderShop(){
     const head=el("div","trip-head",`<h2>${tr.t} <span class="label">${tr.when}</span></h2><span class="count">${done}/${total}</span>`);
     box.appendChild(head);
     box.appendChild(el("p","dishes",esc(tr.dishes)));
+    if(/github\.io$/.test(location.hostname)){
+      const src=new URL("bring/"+tr.id+".html",location.href).href;
+      const href="https://api.getbring.com/rest/bringrecipes/deeplink?url="+encodeURIComponent(src)+"&source=web&baseQuantity=4&requestedQuantity=4";
+      const bb=el("a","bring","Læg "+tr.t+" i Bring!");bb.href=href;bb.target="_blank";bb.rel="noopener";
+      const w=el("div");w.style.margin="0 0 8px";w.appendChild(bb);box.appendChild(w);
+    }
     tr.cats.forEach(([c,items,pantry])=>{
       const cat=el("div","cat"+(pantry?" pantry":""));
       cat.appendChild(el("p","label",esc(c)+(pantry?" · kryds af hvad I har":"")));
