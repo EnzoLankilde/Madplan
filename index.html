@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Madplan">
+<meta name="robots" content="noindex">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Madplan efterår 2026</title>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+/* Layout: one phone column, sticky tab bar, four views (plan, indkøb, opskrifter, bærere) */
+:root{
+  --bg:#F3F5F0; --surface:#FFFFFF; --ink:#1D2420; --muted:#5E6A63; --line:#DCE2DA;
+  --accent:#2E6A4E; --accent-soft:#E2EEE6; --thue:#9A6A0B; --thue-soft:#F6ECD6; --done:#9AA59E;
+  --display:"Familjen Grotesk","Helvetica Neue",Arial,sans-serif;
+  --body:"Atkinson Hyperlegible","Segoe UI",Roboto,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121613; --surface:#1B201C; --ink:#E4E9E3; --muted:#9CA8A0; --line:#2C342E;
+  --accent:#7CC3A0; --accent-soft:#1F3229; --thue:#E3B451; --thue-soft:#352A12; --done:#5E6862; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121613; --surface:#1B201C; --ink:#E4E9E3; --muted:#9CA8A0; --line:#2C342E;
+  --accent:#7CC3A0; --accent-soft:#1F3229; --thue:#E3B451; --thue-soft:#352A12; --done:#5E6862; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+.wrap{max-width:680px;margin:0 auto;padding:0 16px 48px}
+header.top{padding-block:20px 8px}
+h1{font-family:var(--display);font-weight:700;font-size:1.75rem;line-height:1.15;margin:0;text-wrap:balance;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:4px 0 0;font-size:.95rem}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding-block:8px;border-bottom:1px solid var(--line);margin:0 -16px;padding-inline:16px}
+nav.tabs button{font:600 .9rem var(--display);background:transparent;color:var(--muted);border:0;border-radius:10px;padding:10px 4px;cursor:pointer}
+nav.tabs button[aria-selected="true"]{background:var(--accent-soft);color:var(--accent)}
+button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+section.view{padding-top:16px}
+h2{font-family:var(--display);font-size:1.25rem;margin:24px 0 8px;text-wrap:balance}
+h2:first-child{margin-top:4px}
+h3{font-family:var(--display);font-size:1.05rem;margin:16px 0 6px}
+.label{font:600 .72rem var(--display);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.week{margin-bottom:20px}
+.week-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.week-head h2{margin:0}
+.shop{font-size:.85rem;color:var(--muted)}
+.day{display:grid;grid-template-columns:4.2rem 1fr;gap:10px;padding:12px 0;border-top:1px solid var(--line)}
+.day:first-of-type{border-top:0}
+.when{font:600 .85rem var(--display);color:var(--muted);font-variant-numeric:tabular-nums;padding-top:2px}
+.dish{min-width:0}
+.dish a.name{color:var(--ink);font-weight:700;text-decoration:none;border-bottom:1px solid var(--line)}
+.dish a.name:hover{border-bottom-color:var(--accent)}
+.tag{display:inline-block;font:600 .7rem var(--display);letter-spacing:.04em;padding:2px 7px;border-radius:999px;background:var(--accent-soft);color:var(--accent);margin-left:6px;vertical-align:2px}
+.tag.frost{background:var(--thue-soft);color:var(--thue)}
+.thue{margin:4px 0 0;font-size:.92rem;color:var(--ink)}
+.thue b{color:var(--thue)}
+.note{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;font-size:.93rem}
+.note p{margin:0 0 6px}.note p:last-child{margin:0}
+/* shopping */
+.trip{margin-bottom:28px}
+.trip-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.trip-head h2{margin:0}
+.count{font:600 .85rem var(--display);color:var(--muted);font-variant-numeric:tabular-nums}
+.dishes{font-size:.88rem;color:var(--muted);margin:4px 0 8px}
+ul.items{list-style:none;margin:0;padding:0}
+ul.items li{border-top:1px solid var(--line)}
+ul.items label{display:grid;grid-template-columns:24px 1fr auto;gap:10px;align-items:start;padding:10px 0;cursor:pointer}
+ul.items input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--accent)}
+.qty{color:var(--muted);font-size:.9rem;font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+.why{display:block;color:var(--muted);font-size:.82rem}
+li.checked .what,li.checked .qty{color:var(--done);text-decoration:line-through}
+.cat{margin-top:14px}
+.cat.pantry{background:var(--surface);border:1px dashed var(--line);border-radius:12px;padding:4px 14px 6px}
+.reset{font:600 .82rem var(--display);background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:6px 12px;cursor:pointer}
+.sync{font-size:.82rem;color:var(--muted);margin:0 0 12px}
+/* recipes */
+details.rec{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;scroll-margin-top:72px}
+details.rec>summary{list-style:none;cursor:pointer;padding:14px 16px;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+details.rec>summary::-webkit-details-marker{display:none}
+summary .t{font:700 1.02rem var(--display)}
+summary .m{font-size:.82rem;color:var(--muted);white-space:nowrap}
+.recbody{padding:0 16px 16px}
+.recbody ul{margin:4px 0 0;padding-left:1.1em}
+.recbody ol{margin:4px 0 0;padding-left:1.3em}
+.recbody li{margin:3px 0}
+.recbody .thuebox{background:var(--thue-soft);border-radius:10px;padding:10px 12px;margin-top:12px;font-size:.93rem}
+.recbody .thuebox b{color:var(--thue)}
+.src{font-size:.85rem;margin-top:12px;color:var(--muted)}
+.src a{color:var(--accent)}
+.meta{font-size:.88rem;color:var(--muted);margin:0 0 6px}
+@media (prefers-reduced-motion:no-preference){details.rec[open]>.recbody{animation:in .18s ease-out}@keyframes in{from{opacity:.4}to{opacity:1}}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>Madplan efterår 2026</h1>
+    <p class="sub">13. oktober til 15. november · to voksne og en baby · Madbogen v1.4</p>
+  </header>
+  <nav class="tabs" role="tablist">
+    <button role="tab" id="t-plan" aria-selected="true" data-view="plan">Plan</button>
+    <button role="tab" id="t-shop" aria-selected="false" data-view="shop">Indkøb</button>
+    <button role="tab" id="t-rec" aria-selected="false" data-view="rec">Opskrifter</button>
+    <button role="tab" id="t-bar" aria-selected="false" data-view="bar">Bærere</button>
+  </nav>
+  <section class="view" id="v-plan"></section>
+  <section class="view" id="v-shop" hidden></section>
+  <section class="view" id="v-rec" hidden></section>
+  <section class="view" id="v-bar" hidden></section>
+</div>
+
+<script>
+/* ---------- Data ---------- */
+const R = {
+ r22:{t:"Gnocchi alla Sorrentina",n:"22",meta:"Halv opskrift · ca. 4 portioner · 45 min",src:"https://vegetariskhverdag.dk/2020/10/gnocchi-alla-sorrentina/",srcName:"Vegetarisk Hverdag",
+  ing:[["Tomatsovs",["3 fed hvidløg, i tynde skiver","1 spsk frisk timian, finthakket","2 spsk olivenolie","400 g passata (mosede tomater)","½ spsk æblecidereddike","1 tsk sirup eller sukker","Godt med peber","1 dl røde linser, skyllet (vores tilføjelse for jern)","Chiliflager og 1 spsk fond kun til jer, til sidst"]],["Desuden",["700 g færdige gnocchi","2 kugler mozzarella (ca. 190 g brugt)","25 g parmesan, revet"]],["Tilbehør",["1 broccoli, dampet eller stegt med citron"]]],
+  steps:["Tænd ovnen på 200°.","Steg hvidløg og timian i olien ved middel varme et par minutter. Hvidløget må blive gyldent, ikke brunt.","Tilsæt passata, eddike, sirup, peber, de røde linser og ca. 1 dl vand. Simr 15 min, til linserne er møre, og blend saucen glat.","Vend de rå gnocchi i saucen (de skal ikke koges først) og hæld det i et ildfast fad. Riv mozzarellaen i stykker over og drys med parmesan.","Bag 15 til 20 min, til osten er gylden.","Tag babyens portion fra, rør fond og chili i jeres del, og server med broccoli."],
+  thue:"Gnocchien steges ikke på panden først, så den forbliver blød. Giv ham stykker fra midten af fadet, ikke den gratinerede top. Ingen fond eller chili i hans del."},
+ r9:{t:"Kokos dhal med grønne linser",n:"9",meta:"Ca. 4 portioner · 50 min",src:"https://www.valdemarsro.dk/kokos-dhal-med-groenne-linser/",srcName:"Valdemarsro",
+  ing:[["Dhal",["2 spsk olivenolie","4 fed hvidløg, finthakket","2 spsk frisk ingefær, revet","1 spsk mediumstærk karry","1 spsk stødt spidskommen","½ tsk stødt kardemomme","½ spsk stødt koriander","200 g tørrede grønne linser, skyllet","1 dl grøntsagsbouillon","800 ml kokosmælk (2 dåser)","400 g hakkede tomater","Salt og peber"]],["Bærer til babyen",["1 lille blomkål i store buketter"]],["Servering til jer",["1 dl græsk yoghurt 10 %","1 avocado i skiver","Chiliflager","Frisk koriander","Naan eller ris"]]],
+  steps:["Varm olien i en stor gryde ved middel varme. Rør hvidløg og ingefær rundt i et minut.","Tilsæt karry, spidskommen, kardemomme og koriander og lad krydderierne riste kort under omrøring. Chiliflagerne venter til jeres skåle.","Kom linser, bouillon, kokosmælk og tomater i. Simr under låg 30 til 45 min, og rør jævnligt. Til babyen må den gerne blive tyk, så hold igen med ekstra væske.","Damp blomkålsbuketterne 8 til 10 min, til de er helt bløde.","Tag babyens portion fra og vend buketter i. Smag jeres del til med salt og top med yoghurt, avocado, chili og koriander."],
+  thue:"Blomkålsbuketterne er hans bærer: stilken er håndtaget, og hovedet tager dhalen med. Ingen chili og intet salt i hans del. Ris kun til jer."},
+ r10:{t:"Søde kartofler med kikærter og tahin",n:"10",meta:"4 personer · 50 min",src:"https://muttionline.dk/soede-kartofler-i-ovnen-kikaerter-tahin-granataeble/",srcName:"Muttionline",
+  ing:[["Grøntsager",["1 kg søde kartofler","4 store rødløg","4 spsk olie","1 fed hvidløg","1 tsk chiliflager (kun jeres halvdel)","Salt og peber"]],["Kikærter",["2 dåser kikærter","4 spsk olie","½ tsk salt (kun jeres)","2 tsk stødt spidskommen","1 tsk stødt koriander","1 tsk stødt kanel","¼ tsk stødt allehånde"]],["Tahindressing",["1 dl tahin","1 fed hvidløg","Saft af 1 citron","Salt","Koldt vand"]],["Servering",["1 granatæble (kun jer)","1 lime","Persille"]]],
+  steps:["Tænd ovnen på 180° varmluft og gør to plader klar.","Dræn og skyl kikærterne, vend dem i olie og krydderier, og bag dem ca. 40 min. Læg en lille bunke til babyen for sig uden salt.","Skrub de søde kartofler og skær dem i stave på ca. 1,5 cm. Skær løgene i både. Vend i olie, presset hvidløg og peber. Læg babyens del i den ene ende og dæk den med stanniol. Drys chili og salt på resten. Bag ca. 30 min.","Pisk tahin, presset hvidløg, citronsaft og lidt salt med ½ dl koldt vand. Massen strammer først, så tilsæt vand lidt ad gangen til den er cremet.","Anret med dressing, granatæble, lime og persille på jeres tallerkener."],
+  thue:"Hans sødkartofler bages under stanniol, så de bliver bløde uden skorpe. Mos hans kikærter let med en gaffel. Ingen granatæblekerner, og kun en lille klat dressing."},
+ r1:{t:"Beluga bolognese med svampe",n:"1",meta:"DOBBELT · 4 portioner nu + halvdelen til lasagnen",src:"https://vegetariskhverdag.dk/2018/12/beluga-bolognese/",srcName:"Vegetarisk Hverdag",
+  ing:[["Bolognese (dobbelt)",["2 store løg","Ca. 6 spsk olivenolie","2 gulerødder, fintrevet","6 fed hvidløg","500 g champignon, finthakket","2 spsk frisk timian eller 2 tsk tørret","50 g smør","4 spsk tomatpuré","3 dl rødvin","1 dl fløde eller 2 dl sødmælk","800 g passata eller hakkede tomater","4 laurbærblade","2 spsk koncentreret fond (kun hvis I tager babyens del fra først)","4 dl vand","260 g tørrede belugalinser"]],["Servering de to første dage",["300 g pasta","Parmesan","Persille"]]],
+  steps:["Snit løgene fint og svits dem langsomt i olien ved lav varme i 5 til 10 min.","Tilsæt hvidløg, gulerod, champignon, timian og smør og svits videre nogle minutter, til svampene har afgivet deres væde.","Skub grøntsagerne til siden og svits tomatpuréen i lidt ekstra olie i den anden side af gryden.","Hæld rødvinen i og kog godt op, så alkoholen fordamper. Lad den koge ind et par minutter.","Tilsæt fløde, tomater, laurbær og vand. Simr under låg 10 til 30 min.","Skyl linserne, kom dem i og simr 25 til 45 min. Tilsæt vand undervejs. Til babyen skal linserne være helt møre, så hellere lidt for længe.","Tag babyens portion fra. Smag resten til med fond, salt og peber.","Frys halvdelen i en pose til lasagnen i uge 2. Server resten med pasta og parmesan."],
+  thue:"Hans portion tages fra før fond og salt. Rødvinen skal koge grundigt ind. Pastaen er hans bærer, og parmesan kommer kun på jeres tallerkener."},
+ r12:{t:"Cremet gnocchi med spinat og ærter",n:"12",meta:"Ca. 4 portioner · 20 min · eneste spinatret i planen",src:"https://vegetariskhverdag.dk/2021/04/cremet-gnocchi-%E2%80%A8m-spinat-aerter/",srcName:"Vegetarisk Hverdag",
+  ing:[["Ingredienser",["900 g gnocchi (2 pakker)","300 g frossen spinat","250 g frosne ærter","3 fed hvidløg","Chiliflager (kun jer)","1 dl hvidvin","250 g creme fraiche 18 %","1 citron, skal og saft","2 spsk smør","50 g pecorino eller parmesan"]]],
+  steps:["Tø spinaten op og pres så meget vand ud som muligt. Hak hvidløget fint.","Kog gnocchien i letsaltet vand, til den flyder op, og hæld vandet fra. Til jer må den gerne vendes et øjeblik på en pande med smør bagefter.","Smelt smørret i en pande, svits hvidløget kort, og tilsæt spinat og ærter. Steg et minut.","Hæld hvidvinen i og kog den helt ind. Rør creme fraiche i og lad det kun lige blive varmt.","Sluk, rør citronskal i og vend gnocchien i saucen.","Tag babyens portion fra. Giv jeres chili, ost, citronsaft og salt."],
+  thue:"Gnocchien koges i stedet for at steges, så den er blød hele vejen igennem. Vinen skal være kogt helt ind før hans portion tages fra. Ingen ost, chili eller salt."},
+ r5:{t:"Chili sin carne",n:"5",meta:"1½ portion · Fre, Lør og Søn",src:"https://www.valdemarsro.dk/chili-sin-carne/",srcName:"Valdemarsro",
+  ing:[["Chili (1½ gange opskriften)",["2 tsk stødt spidskommen","1½ tsk stødt kanel","2 tsk stødt koriander","1½ tsk røget paprika","3 rødløg, finthakket","3 fed hvidløg, finthakket","2 squash, groftrevet","3 stængler bladselleri, groftrevet","2 auberginer, groftrevet","1 glas soltørrede tomater (ca. 4 spsk)","2 dåser hakkede tomater","1½ dl grøntsagsbouillon","3 dåser kidneybønner, skyllet","45 g mørk chokolade","4 spsk olivenolie","Chiliflager, salt og peber (kun jer)"]],["Bærer til babyen",["Polentafingre (se Bærere)"]],["Servering til jer",["Ris","150 g cremefraiche 18 %","150 g cheddar","1 lime","Frisk koriander","½ rød chili"]]],
+  steps:["Rist spidskommen, kanel, koriander og røget paprika i en tør gryde et par minutter, til det dufter.","Skru ned, tilsæt olie, løg og hvidløg og steg til løgene er bløde.","Tilsæt squash, aubergine, bladselleri, begge slags tomat og bouillon. Simr under låg 30 min.","Kom bønnerne i og varm dem igennem 5 min.","Tag gryden af varmen og rør chokoladen i lidt ad gangen.","Tag babyens portion fra og vend polentafingre i. Smag jeres til med chili, salt og peber."],
+  thue:"Polentafingrene er hans bærer. Tag hans portion fra før chiliflager og salt. Chokoladen er fin i den lille mængde. Bønnerne moser han selv mellem fingrene."},
+ r2:{t:"Lasagne med beluga bolognese",n:"2",meta:"6 portioner · 2 fryses til søndag",src:"https://stinna.dk/groentsagslasagne/",srcName:"Stinna (grøntsagssauce og mornay)",
+  ing:[["Sauce",["Bolognesen fra fryseren (tøet op dagen før)","Halv portion af Stinnas grøntsagssauce: 1 løg, 1 fed hvidløg, ½ squash, 2 gulerødder, 2 store tomater, 1 peberfrugt, ½ spsk tomatpuré, 1 dåse hakkede tomater, 1½ dl bouillon, ½ spsk oregano, ½ spsk timian, ½ tsk paprika, en knivspids røget paprika"]],["Mornaysauce",["50 g smør","3 spsk hvedemel","3 dl sødmælk","Lidt revet muskatnød","100 g revet ost","Peber"]],["Desuden",["1 pakke lasagneplader (fuldkorn)"]]],
+  steps:["Hak alle grøntsagerne til grøntsagssaucen helt fint i foodprocessor.","Steg løg og hvidløg i lidt olie, tilsæt resten af grøntsagerne og steg 3 til 4 min.","Tilsæt tomatpuré, hakkede tomater, bouillon og krydderier, og kog uden låg 30 min. Bland med den optøede bolognese.","Tænd ovnen på 200° varmluft.","Mornay: smelt smørret, pisk mel i, og tilsæt mælken lidt ad gangen under piskning, til saucen tykner. Rør muskat, ost og peber i.","Byg lasagnen i et smurt fad: plader, sauce, lidt mornay. Gentag og slut med sauce og mornay.","Bag 30 min. Læg stanniol over hvis toppen bliver for mørk.","Frys 2 portioner tirsdag til søndagen."],
+  thue:"Giv ham et stykke fra midten, hvor der ikke er sprød kant, og skær det i strimler. Ingen salt i saucen. Mornayen har ost, så hold den let."},
+ r7:{t:"Shakshuka",n:"7",meta:"Ca. 4 portioner · saucen laves én gang, æg pocheres friskt hver dag",src:"",srcName:"Standardopskrift i Madbogen",
+  ing:[["Sauce",["1 stort løg","4 fed hvidløg","2 røde peberfrugter","2 dåser hakkede tomater","1 spsk tomatpuré","1 tsk spidskommen","1 tsk røget paprika","Olivenolie","Chiliflager (kun jer)"]],["Desuden",["8 æg","100 g feta (kun jer)","Persille eller koriander","Godt brød (jer)"]],["Bærer til babyen",["Ca. 500 g kartofler i stave"]]],
+  steps:["Snit løg og peberfrugter i tynde strimler og hak hvidløget.","Steg løg og peberfrugt blødt i olie ved middel varme i ca. 10 min. Tilsæt hvidløg, spidskommen og røget paprika og steg et minut.","Tilsæt tomatpuré og tomater og simr 15 min, til saucen er tyk. Kartoffelstavene simrer med de sidste 15 min.","Del saucen. Gem halvdelen til i morgen.","Lav fire fordybninger i panden, slå et æg i hver, læg låg på og lad dem trække 6 til 8 min.","Tag babyens portion fra. Giv jeres feta, chili, krydderurter og brød."],
+  thue:"Hans æg skal være helt gennemkogt: lad det trække lidt længere og skær det i strimler. Kartoffelstavene fra saucen er hans bærer. Ingen feta og ingen chili."},
+ r20:{t:"One pot pasta med masser af grønt",n:"20",meta:"4 personer · 30 min",src:"https://emmaolsen.dk/one-pot-pasta-vegetar/",srcName:"Emma Olsen",
+  ing:[["Ingredienser",["350 g fuldkornsspaghetti","2 spsk olivenolie","1 løg","2 fed hvidløg","1 squash, groftrevet","150 g ærter","1 broccoli i små buketter","200 g brune champignon i skiver","1 håndfuld frisk basilikum","2 tsk tørret timian","2 tsk tørret oregano","½ citron","8 dl grøntsagsbouillon","1½ dl kokosmælk","Peber"]],["Kun jeres tallerkener",["40 g parmesan","Basilikum","Flagesalt"]]],
+  steps:["Hak løg og hvidløg, skær champignon i skiver, riv squash og del broccolien i buketter.","Kom olie, alle grøntsager, basilikum, timian, oregano, citronsaft, kokosmælk og 6 dl bouillon i en stor gryde. Kog op og simr til grøntsagerne er møre.","Blend saucen glat med stavblender.","Tilsæt spaghettien og resten af bouillonen og lad den simre under låg ca. 10 min, til pastaen er mør. Fuldkornspasta tager lidt længere.","Server og giv jer parmesan, basilikum og salt."],
+  thue:"Ingen tilpasning. Saucen er blendet, så broccoli og svampe følger med pastaen. Gem evt. et par dampede broccolibuketter til ham ved siden af."},
+ r4:{t:"Dahl med grønne linser",n:"4",meta:"DOBBELT · 4 portioner nu + 4 i fryseren",src:"https://stinna.dk/dahl-med-groenne-linser/",srcName:"Stinna",
+  ing:[["Dahl (dobbelt)",["40 g smør","2 løg, finthakket","6 fed hvidløg, finthakket","8 cm frisk ingefær, revet","2 spsk garam masala","2 tsk gurkemeje","2 spsk spidskommen","2 tsk stødt koriander","2 dåser kokosmælk","Ca. 8 dl vand (lidt mindre end 1 l, da der bruges kokosmælk)","2 terninger grøntsagsbouillon","500 g tørrede grønne linser, skyllet"]],["Bærer til babyen",["Ca. 500 g kartofler i stave"]],["Servering til jer",["Ris eller naan","Raita: græsk yoghurt, revet agurk, lidt salt","Lime"]]],
+  steps:["Smelt smørret i en stor gryde ved middel varme.","Svits løg, hvidløg og ingefær, til det er blødt og let gyldent.","Rist garam masala, gurkemeje, spidskommen og koriander kort med. Det må ikke brænde.","Tilsæt linser, kokosmælk, vand og bouillon. Simr 25 til 35 min, til linserne er møre og saucen tyk. Kartoffelstavene simrer med de sidste 15 min.","Tag babyens portion fra. Smag jeres til med lime og salt.","Lad halvdelen køle af og frys den i to poser til søndag i uge 3 og uge 4."],
+  thue:"Kog den tyk. Kartoffelstavene er hans bærer. Lime og salt kun i jeres del. Bouillonen giver lidt salt, så brug gerne kun én terning, hvis I vil være helt sikre."},
+ r29:{t:"Orzo med citron og laks",n:"29",meta:"4 personer · 30 min · ny i Madbogen",src:"https://www.nemlig.com/opskrifter/orzo-citron-laks-98004504",srcName:"nemlig.com",
+  ing:[["Stegt laks",["450 g laksefilet","2 spsk olivenolie"]],["Orzo",["2 fed hvidløg","300 g orzo","1 stk. grøntsagsbouillon","6 dl vand","250 g grønne bønner eller bimi broccoli (asparges er ude af sæson)","15 g smør","1 citron","1 dl fløde","½ bundt purløg","25 g hård ost","Salt og peber"]]],
+  steps:["Krydr laksen med salt og peber og behold skindet.","Steg laksen i olien ved middelhøj varme med skindsiden nedad 3 til 4 min, vend og steg 3 til 5 min mere. Tag den af panden.","Skær bønnerne i stykker på ca. 2 cm. Hak hvidløg og purløg.","Skræl to strimler citronskal. Smelt smørret i samme pande og steg hvidløg og skalstrimler 1 til 2 min. Fjern strimlerne.","Tilsæt orzo, bouillon og to tredjedele af vandet og kog ca. 6 min. Tilsæt mere vand hvis den koger tør.","Rør fløde, citronsaft og bønner i og simr ca. 5 min, til bønnerne er møre og saucen tyk.","Tag babyens portion fra. Rør revet ost og purløg i resten og læg laksen ovenpå."],
+  thue:"Orzo skal han skemades. Hans laks må ikke være sprød: tag et stykke fra midten uden skind, eller lad et lille stykke trække i orzoen de sidste minutter. Flag den og tjek for ben. Ingen ost og intet ekstra salt."},
+ r23:{t:"Bagt gnocchi i krydret tomatsauce",n:"23",meta:"4 personer · 45 min",src:"https://www.valdemarsro.dk/bagt-gnocchi-krydret-tomatsauce/",srcName:"Valdemarsro",
+  ing:[["Ingredienser",["1 spsk olivenolie","1 løg, finthakket","3 fed hvidløg, pressede","2 spsk soltørrede tomater, finthakkede (færre end originalen, de er salte)","1 håndfuld frisk basilikum","1 tsk fennikelfrø","1 tsk tørret rosmarin","1 squash (ca. 250 g), groftrevet","1 dl grøntsagsbouillon","800 g hakkede tomater","1 dl røde linser, skyllet (vores tilføjelse)","125 g ricotta","500 g gnocchi","125 g frisk mozzarella","50 g parmesan"]],["Servering",["25 g parmesan og basilikum (jer)","Flagesalt (jer)"]]],
+  steps:["Svits løget blødt i olien ved middel varme.","Tilsæt hvidløg, soltørrede tomater, basilikum, fennikelfrø, rosmarin, squash, bouillon, tomater og røde linser. Simr uden låg 15 min, til linserne er møre.","Rør ricotta i og derefter de rå gnocchi. Vend forsigtigt og hæld i et smurt fad.","Fordel mozzarella i stykker og parmesan over.","Bag ved 180° varmluft 15 til 20 min, til osten er smeltet og let gylden."],
+  thue:"Han får fra midten af fadet, ikke fra den gratinerede top. Ricottaen gør saucen mild, og den klæber godt til gnocchien. Salt kun på jeres tallerkener."},
+ r6:{t:"Svampestroganoff med spätzle",n:"6",meta:"4 portioner · 45 min · forsøg: spätzle i stedet for ris",src:"https://vegetariskhverdag.dk/2023/02/svampestroganoff/",srcName:"Vegetarisk Hverdag",
+  ing:[["Stroganoff",["2 dl tørrede svampe + 2 dl kogende vand","1 stort løg","2 spsk olie","500 g østershatte","1 spsk smør","1 fed hvidløg","3 spsk tomatpuré","1 spsk koncentreret fond (efter babyens del er taget fra)","1½ spsk æblecidereddike","1 tsk tørret estragon","1 til 2 tsk dijonsennep (efter babyens del er taget fra)","2½ dl piskefløde"]],["Linser",["1½ dl belugalinser","5 dl grøntsagsbouillon"]],["Desuden",["500 g spätzle","1 broccoli eller grønne bønner","Purløg"]]],
+  steps:["Hæld kogende vand over de tørrede svampe og lad dem trække. Sæt linserne over med bouillonen.","Skær løget i strimler og steg det blødt i olie i en gryde.","Riv østershattene i strimler og steg dem ved høj varme på en pande, til væden er væk. Tilsæt smør og steg til de er gyldne.","Pres vandet ud af de udblødte svampe (gem vandet) og kom dem i gryden sammen med de stegte svampe, hvidløg og tomatpuré. Steg 2 til 3 min.","Fyld svampevandet op til 3 dl med vand og hæld det i sammen med eddike, estragon og peber. Kog op, tilsæt fløden og simr forsigtigt mindst 10 min.","Si linserne og rør dem i. Kog spätzle efter pakken.","Tag babyens portion fra. Smag jeres til med fond, dijon og salt, og server med grønt og purløg."],
+  thue:"Spätzle er hans bærer. Tag hans portion fra før fond og dijon, så er stroganoffen ikke længere en ren voksenret. Er østershattene seje, så hak hans del fint."},
+ r13:{t:"Kartoffel og porresuppe med smørbønner",n:"13",meta:"4 personer · 40 min",src:"https://anna-mad.dk/kartoffel-porresuppe/",srcName:"Anna Mad",
+  ing:[["Suppe",["1 kg kartofler (ikke bagekartofler)","3 porrer","3 fed hvidløg","1 spsk olivenolie","1 terning grøntsagsbouillon (den anden efter babyens del)","1 dåse smørbønner (butterbeans), skyllet (vores tilføjelse)","1 dl fløde","Citronsaft, muskatnød, peber"]],["Servering",["Purløg","Godt brød (jer)","Cremefraiche (jer)"]]],
+  steps:["Skær porrerne i tynde strimler og skyl dem godt. Hak hvidløget.","Svits porre og hvidløg blødt i olien uden at de tager farve.","Tilsæt kartofler i små tern og varm igennem 5 min.","Tilsæt én bouillonterning og vand, så det netop dækker. Simr under låg til kartoflerne er møre.","Kom smørbønnerne i og blend suppen glat. Tilsæt vand til den ønskede tykkelse. Til babyen må den gerne være tyk.","Tag babyens portion fra. Rør fløde i jeres og smag til med citron, muskat, peber og evt. resten af bouillonen."],
+  thue:"Skemad. Smørbønnerne giver protein og jern. Smag hans til med peber og lidt citron, så den ikke er kedelig. Brød kun til jer."},
+ r17:{t:"One pot pasta med ærter",n:"17",meta:"Vores version · 4 personer · 30 min",src:"https://www.valdemarsro.dk/one-pot-pasta-med-spinat-og-aerter/",srcName:"Valdemarsro (vores variant uden spinat)",
+  ing:[["Ingredienser",["400 g spaghetti (gerne fuldkorn)","1 løg, finthakket","2 fed hvidløg, finthakket","2 squash, groftrevet","300 g frosne ærter","1 håndfuld frisk basilikum","1 dl piskefløde","1 liter grøntsagsbouillon (start med 8 dl)","1 spsk olivenolie","Peber"]],["Kun jeres tallerkener",["30 g parmesan","Skal og saft af 1 øko citron","Ristede pinjekerner","Basilikum","Flagesalt"]]],
+  steps:["Kog løg, hvidløg, squash, ærter, basilikum, fløde og bouillon op og simr til grøntsagerne er møre.","Blend saucen glat med stavblender.","Kom spaghettien i og lad den koge al dente direkte i saucen, ca. 10 min.","Server. Parmesan, citron, pinjekerner og salt kommer på jeres tallerkener."],
+  thue:"Ingen tilpasning. Ingen salt i gryden, ingen chili, og pastaen er skeen. Pinjekerner kun til jer."}
+};
+
+const PLAN=[
+ {w:"Uge 0",d:"13/10 til 18/10",shop:"Handles i dag",rows:[
+  ["Tir/Ons","r22","Gnocchien steges ikke. Han får fra midten."],
+  ["Tor/Fre","r9","Dampede blomkålsbuketter vendt i."],
+  ["Lør/Søn","r10","Hans del bages under stanniol, kikærterne moses."]]},
+ {w:"Uge 1",d:"19/10 til 25/10",shop:"Handles lør 17/10",rows:[
+  ["Man/Tir","r1","Halvdelen fryses til lasagnen.","DOBBELT"],
+  ["Ons/Tor","r12","Gnocchien koges, ikke stegt."],
+  ["Fre/Lør","r5","Polentafingre. Hans del før chili og salt.","1½"],
+  ["Søn",null,"Chili fra køleskabet (resten fra fredag)."]]},
+ {w:"Uge 2",d:"26/10 til 1/11",shop:"Handles lør 24/10",rows:[
+  ["Man/Tir","r2","Stykke fra midten. 2 portioner fryses."],
+  ["Ons/Tor","r7","Æg i strimler og kartoffelstave i saucen."],
+  ["Fre/Lør","r20","Som altid."],
+  ["Søn",null,"Lasagne fra fryseren.","FRYSER"]]},
+ {w:"Uge 3",d:"2/11 til 8/11",shop:"Handles lør 31/10",rows:[
+  ["Man/Tir","r4","Kog den tyk og vend kartoffelstave i.","DOBBELT"],
+  ["Ons/Tor","r29","Skemad. Laks fra midten, tjek for ben."],
+  ["Fre/Lør","r23","Han får fra midten. Få soltørrede tomater."],
+  ["Søn",null,"Dahl fra fryseren.","FRYSER"]]},
+ {w:"Uge 4",d:"9/11 til 15/11",shop:"Handles lør 7/11",rows:[
+  ["Man/Tir","r6","Hans del før dijon og fond.","FORSØG"],
+  ["Ons/Tor","r13","Skemad."],
+  ["Fre/Lør","r17","Som altid."],
+  ["Søn",null,"Dahl fra fryseren.","FRYSER"]]}
+];
+
+/* Shopping trips: [category, [[item, qty, why?]]] ; pantry = krydderier og basisvarer */
+const SHOP=[
+ {id:"u0",t:"Uge 0",when:"Handles i dag",dishes:"Gnocchi alla Sorrentina (halv) · Kokos dhal · Søde kartofler med kikærter",cats:[
+  ["Grønt",[["Hvidløg","1 knold","9 fed"],["Frisk timian","1 potte"],["Frisk ingefær","5 cm"],["Blomkål","1 lille","babyens bærer"],["Broccoli","1"],["Søde kartofler","1 kg"],["Rødløg","4 store"],["Avocado","1"],["Frisk koriander","1 bundt"],["Persille","1 bundt"],["Citron","1"],["Lime","1"],["Granatæble","1","Kun til jer"]]],
+  ["Køl",[["Gnocchi","700 g"],["Mozzarella","2 × 125 g"],["Parmesan","25 g"],["Græsk yoghurt 10 %","1 bæger"]]],
+  ["Tørvarer og dåser",[["Passata","400 g"],["Grønne linser, tørrede","200 g"],["Røde linser","1 pose","Til tomatsovsen nu og i uge 3"],["Kokosmælk","2 dåser"],["Hakkede tomater","1 dåse"],["Kikærter","2 dåser"],["Tahin","1 glas"],["Naan eller ris","Til jer"]]],
+  ["Krydderier og basisvarer",[["Olivenolie"],["Æblecidereddike"],["Sirup eller sukker"],["Grøntsagsbouillon"],["Mediumstærk karry"],["Stødt spidskommen"],["Stødt kardemomme"],["Stødt koriander"],["Stødt kanel"],["Stødt allehånde"],["Chiliflager"],["Salt og peber"]],1]
+ ]},
+ {id:"u1",t:"Uge 1",when:"Lør 17/10",dishes:"Beluga bolognese (dobbelt) · Cremet gnocchi · Chili sin carne (1½)",cats:[
+  ["Grønt",[["Løg","2 store"],["Rødløg","3"],["Gulerødder","2"],["Hvidløg","2 knolde","12 fed"],["Champignon","500 g"],["Squash","2"],["Aubergine","2"],["Bladselleri","1 bundt","3 stængler"],["Citron","1"],["Lime","1"],["Frisk koriander","1 bundt"],["Persille","1 bundt"],["Rød chili","1","Kun til jer"]]],
+  ["Køl",[["Piskefløde","¼ l"],["Smør","1 pakke"],["Gnocchi","900 g","2 pakker"],["Creme fraiche 18 %","400 g","250 g gnocchi + 150 g chili"],["Parmesan eller pecorino","100 g"],["Cheddar","150 g"]]],
+  ["Frost",[["Spinat, hakket","300 g"],["Ærter","1 stor pose","250 g nu, resten til uge 2"]]],
+  ["Tørvarer og dåser",[["Belugalinser","260 g"],["Tomatpuré","1 lille dåse"],["Passata eller hakkede tomater","2 × 400 g","Bolognese"],["Hakkede tomater","2 dåser","Chili"],["Kidneybønner","3 dåser"],["Soltørrede tomater i olie","1 glas"],["Mørk chokolade","50 g"],["Pasta","300 g"],["Polenta","1 pakke","babyens polentafingre"],["Ris","Til jer"]]],
+  ["Andet",[["Rødvin","3 dl"],["Hvidvin","1 dl"],["Fryseposer","1 rulle","Bolognese til lasagne"]]],
+  ["Krydderier og basisvarer",[["Olivenolie"],["Laurbærblade"],["Tørret timian"],["Koncentreret grøntsagsfond"],["Stødt spidskommen"],["Stødt kanel"],["Stødt koriander"],["Røget paprika"],["Chiliflager"],["Salt og peber"]],1]
+ ]},
+ {id:"u2",t:"Uge 2",when:"Lør 24/10",dishes:"Lasagne med bolognese · Shakshuka · One pot med masser af grønt",cats:[
+  ["Grønt",[["Løg","3"],["Hvidløg","1 knold","7 fed"],["Squash","2"],["Gulerødder","2"],["Store tomater","2"],["Peberfrugt","3","2 røde + 1 valgfri"],["Kartofler","500 g","babyens stave til shakshuka"],["Broccoli","1"],["Brune champignon","200 g"],["Frisk basilikum","1 potte"],["Persille eller koriander","1 bundt"],["Citron","1"]]],
+  ["Køl",[["Sødmælk","½ l"],["Smør","50 g"],["Revet ost","100 g"],["Æg","10 stk."],["Feta","100 g","Kun til jer"],["Parmesan","40 g"]]],
+  ["Frost",[["Ærter","150 g","Måske rest fra uge 1"]]],
+  ["Tørvarer og dåser",[["Hakkede tomater","3 dåser"],["Tomatpuré","1 lille dåse"],["Lasagneplader, fuldkorn","1 pakke"],["Fuldkornsspaghetti","350 g"],["Kokosmælk","1 dåse"],["Godt brød","1","Til shakshuka"]]],
+  ["Krydderier og basisvarer",[["Hvedemel"],["Muskatnød"],["Tørret oregano"],["Tørret timian"],["Paprika"],["Røget paprika"],["Stødt spidskommen"],["Grøntsagsbouillon"],["Chiliflager"],["Olivenolie"]],1]
+ ]},
+ {id:"u3",t:"Uge 3",when:"Lør 31/10",dishes:"Dahl med grønne linser (dobbelt) · Orzo med citron og laks · Bagt gnocchi",cats:[
+  ["Grønt",[["Løg","3"],["Hvidløg","2 knolde","11 fed"],["Frisk ingefær","8 cm"],["Kartofler","500 g","babyens stave til dahl"],["Agurk","1","Raita"],["Grønne bønner eller bimi broccoli","250 g"],["Squash","1"],["Frisk basilikum","1 potte"],["Purløg","1 bundt"],["Citron","1"],["Lime","1"]]],
+  ["Køl og fisk",[["Laksefilet","450 g"],["Piskefløde","¼ l"],["Smør","1 pakke"],["Græsk yoghurt","1 bæger","Raita"],["Ricotta","125 g"],["Gnocchi","500 g"],["Frisk mozzarella","125 g"],["Parmesan","100 g"]]],
+  ["Tørvarer og dåser",[["Grønne linser, tørrede","500 g"],["Kokosmælk","2 dåser"],["Orzo","300 g"],["Hakkede tomater","2 dåser"],["Soltørrede tomater","Rest fra uge 1"],["Røde linser","Rest fra uge 0"],["Naan eller ris","Til jer"]]],
+  ["Krydderier og basisvarer",[["Garam masala"],["Gurkemeje"],["Stødt spidskommen"],["Stødt koriander"],["Fennikelfrø"],["Tørret rosmarin"],["Grøntsagsbouillon"],["Olivenolie"],["Salt og peber"]],1]
+ ]},
+ {id:"u4",t:"Uge 4",when:"Lør 7/11",dishes:"Svampestroganoff med spätzle · Kartoffel og porresuppe · One pot med ærter",cats:[
+  ["Grønt",[["Løg","2","1 stort"],["Hvidløg","1 knold","6 fed"],["Østershatte","500 g"],["Kartofler","1 kg","Ikke bagekartofler"],["Porrer","3"],["Squash","2"],["Broccoli eller grønne bønner","1"],["Frisk basilikum","1 potte"],["Purløg","1 bundt"],["Citron","1","Øko, skallen bruges"]]],
+  ["Køl",[["Piskefløde","½ l"],["Smør","Rest"],["Spätzle","500 g","Kan også stå på tørvarehylden"],["Parmesan","30 g"],["Cremefraiche","1 lille","Til suppen, valgfri"]]],
+  ["Frost",[["Ærter","300 g"]]],
+  ["Tørvarer og dåser",[["Tørrede svampe","1 pose","2 dl"],["Belugalinser","130 g","Rest fra uge 1?"],["Tomatpuré","1 lille dåse"],["Smørbønner (butterbeans)","1 dåse"],["Spaghetti, gerne fuldkorn","400 g"],["Pinjekerner","1 pose","Kun til jer"],["Godt brød","1","Til suppen"]]],
+  ["Krydderier og basisvarer",[["Tørret estragon"],["Dijonsennep"],["Æblecidereddike"],["Koncentreret grøntsagsfond"],["Grøntsagsbouillon"],["Muskatnød"],["Olivenolie"],["Flagesalt"],["Salt og peber"]],1]
+ ]}
+];
+
+const BAR=[
+ {t:"Polentafingre",src:"https://solidstarts.com/foods/cornmeal-polenta/",steps:["Kog 2 dl polenta i 8 dl vand efter pakken, uden salt.","Smag til med timian, hvidløg eller en klat smør, så de smager af noget.","Hæld massen i et smurt fad i ca. 1,5 cm tykkelse og lad den stivne på køl.","Skær i stave på ca. 1,5 × 6 cm og lun dem i saucen. De må ikke steges.","Kan laves dagen før og holder 3 dage på køl."],test:"Skal kunne mases let mellem to fingre."},
+ {t:"Kogte kartoffelstave",src:"https://solidstarts.com/foods/potato/",steps:["Skræl eller skrub kartoflerne og skær dem i stave på ca. 1,5 × 6 cm.","Kog dem 12 til 15 min i usaltet vand, eller lad dem simre med i saucen de sidste 15 min, så de tager smag."],test:"Kniven skal glide igennem uden modstand."},
+ {t:"Sødkartoffelstave",src:"https://solidstarts.com/foods/sweet-potato/",steps:["Skær dem som kartoffelstavene.","De er hurtigere: 8 til 10 min kogt eller dampet. I en gryde skal de i de sidste 10 min.","Skal de i ovnen, så dæk dem med stanniol, så de ikke får skorpe."],test:"Bløde hele vejen igennem."},
+ {t:"Dampede buketter",src:"https://solidstarts.com/foods/cauliflower/",steps:["Skær blomkål eller broccoli i store buketter med lang stilk, så stilken bliver håndtaget.","Damp dem 8 til 10 min, til de er helt bløde.","Den skrællede hovedstilk kan skæres i flade stave og dampes med."],test:"Hovedet skal give efter for et let tryk."},
+ {t:"Kan købes færdige",src:"",steps:["Gnocchi: koges, steges ikke.","Spätzle: koges efter pakken.","Udon: tjek saltet på pakken.","Smørbønner (butterbeans): skylles, gode til pincetgrebet."],test:""}
+];
+
+/* ---------- Rendering helpers ---------- */
+const $=s=>document.querySelector(s);
+const el=(tag,cls,html)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function showView(v){
+  document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.view===v?"true":"false"));
+  ["plan","shop","rec","bar"].forEach(k=>{$("#v-"+k).hidden=(k!==v)});
+  try{localStorage.setItem("mp-view",v)}catch(e){}
+}
+document.querySelectorAll("nav.tabs button").forEach(b=>b.addEventListener("click",()=>{showView(b.dataset.view);window.scrollTo(0,0)}));
+
+function openRecipe(id){
+  showView("rec");
+  const d=document.getElementById(id);
+  if(d){d.open=true;d.scrollIntoView({behavior:"smooth",block:"start"})}
+}
+
+/* Plan */
+(function(){
+  const v=$("#v-plan");
+  PLAN.forEach(wk=>{
+    const box=el("div","week");
+    const head=el("div","week-head",`<h2>${wk.w} <span class="label">${wk.d}</span></h2><span class="shop">${wk.shop}</span>`);
+    box.appendChild(head);
+    wk.rows.forEach(([day,rid,note,tag])=>{
+      const row=el("div","day");
+      row.appendChild(el("div","when",day));
+      const d=el("div","dish");
+      const tg=tag?`<span class="tag${tag==="FRYSER"?" frost":""}">${tag}</span>`:"";
+      if(rid){
+        const r=R[rid];
+        d.innerHTML=`<a class="name" href="#${rid}">${r.n}. ${esc(r.t)}</a>${tg}<p class="thue"><b>Baby:</b> ${esc(note)}</p>`;
+        d.querySelector("a").addEventListener("click",e=>{e.preventDefault();openRecipe(rid)});
+      } else {
+        d.innerHTML=`<span class="name"><b>${esc(note)}</b></span>${tg}`;
+      }
+      row.appendChild(d);box.appendChild(row);
+    });
+    v.appendChild(box);
+  });
+  v.appendChild(el("div","note",`<p><b>Fryseren:</b> Bolognesen rækker til to dage plus lasagnen. Lasagnen laves i 6 portioner, så 2 kan fryses til søndag. Dahlen i uge 3 laves dobbelt og dækker de to sidste søndage.</p><p><b>Jern:</b> Røde linser i tomatsovsen til begge gnocchiretter og smørbønner i suppen løfter de tre svageste retter.</p>`));
+})();
+
+/* Recipes */
+(function(){
+  const v=$("#v-rec");
+  v.appendChild(el("p","meta","Fremgangsmåderne er skrevet om med egne ord og tilpasset babyen. Tryk på en ret for at folde den ud."));
+  const order=[];PLAN.forEach(w=>w.rows.forEach(r=>{if(r[1]&&!order.includes(r[1]))order.push(r[1])}));
+  order.forEach(id=>{
+    const r=R[id];
+    const d=el("details","rec");d.id=id;
+    const s=el("summary",null,`<span class="t">${r.n}. ${esc(r.t)}</span><span class="m">${esc(r.meta.split(" · ")[0])}</span>`);
+    d.appendChild(s);
+    const b=el("div","recbody");
+    b.appendChild(el("p","meta",esc(r.meta)));
+    r.ing.forEach(([h,list])=>{b.appendChild(el("h3",null,esc(h)));const ul=el("ul");list.forEach(i=>ul.appendChild(el("li",null,esc(i))));b.appendChild(ul)});
+    b.appendChild(el("h3",null,"Sådan gør I"));
+    const ol=el("ol");r.steps.forEach(s=>ol.appendChild(el("li",null,esc(s))));b.appendChild(ol);
+    b.appendChild(el("div","thuebox",`<b>Baby:</b> ${esc(r.thue)}`));
+    b.appendChild(el("p","src",r.src?`Original: <a href="${r.src}" target="_blank" rel="noopener">${esc(r.srcName)}</a>`:esc(r.srcName)));
+    d.appendChild(b);v.appendChild(d);
+  });
+})();
+
+/* Bærere */
+(function(){
+  const v=$("#v-bar");
+  v.appendChild(el("p","meta","Bærerne erstatter pastaen 1:1: faste nok at holde, bløde nok til få tænder, og de skal kunne vendes i en sauce. Intet sprødt."));
+  BAR.forEach(b=>{
+    const d=el("details","rec");d.open=true;
+    d.appendChild(el("summary",null,`<span class="t">${esc(b.t)}</span>`));
+    const body=el("div","recbody");
+    const ol=el("ol");b.steps.forEach(s=>ol.appendChild(el("li",null,esc(s))));body.appendChild(ol);
+    if(b.test)body.appendChild(el("div","thuebox",`<b>Test:</b> ${esc(b.test)}`));
+    if(b.src)body.appendChild(el("p","src",`Billeder af hvordan man skærer: <a href="${b.src}" target="_blank" rel="noopener">Solid Starts</a> (engelsk)`));
+    d.appendChild(body);v.appendChild(d);
+  });
+})();
+
+/* Shopping with shared ticks */
+const checked=new Set();
+let db=null, readOnly=false;
+const LS="mp-checks";
+function loadLocal(){try{const a=JSON.parse(localStorage.getItem(LS)||"[]");a.forEach(k=>checked.add(k))}catch(e){}}
+function saveLocal(){try{localStorage.setItem(LS,JSON.stringify([...checked]))}catch(e){}}
+const keyOf=(trip,cat,name)=>(trip+"_"+cat+"_"+name).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/æ/g,"ae").replace(/ø/g,"o").replace(/å/g,"a").replace(/[^a-z0-9]+/g,"_").slice(0,150);
+
+function renderShop(){
+  const v=$("#v-shop");v.innerHTML="";
+  v.appendChild(el("p","sync",db?"Afkrydsning deles mellem jer og gemmes.":"Afkrydsning gemmes kun på denne telefon."));
+  SHOP.forEach((tr,ti)=>{
+    const box=el("div","trip");
+    let total=0,done=0;
+    tr.cats.forEach(([c,items])=>items.forEach(([n])=>{total++;if(checked.has(keyOf(tr.id,c,n)))done++}));
+    const head=el("div","trip-head",`<h2>${tr.t} <span class="label">${tr.when}</span></h2><span class="count">${done}/${total}</span>`);
+    box.appendChild(head);
+    box.appendChild(el("p","dishes",esc(tr.dishes)));
+    tr.cats.forEach(([c,items,pantry])=>{
+      const cat=el("div","cat"+(pantry?" pantry":""));
+      cat.appendChild(el("p","label",esc(c)+(pantry?" · kryds af hvad I har":"")));
+      const ul=el("ul","items");
+      items.forEach(([n,q,why])=>{
+        const k=keyOf(tr.id,c,n);
+        const li=el("li",checked.has(k)?"checked":"");
+        const id="c_"+k;
+        li.innerHTML=`<label for="${id}"><input type="checkbox" id="${id}" ${checked.has(k)?"checked":""} ${readOnly?"disabled":""}><span class="what">${esc(n)}${why?`<span class="why">${esc(why)}</span>`:""}</span><span class="qty">${q?esc(q):""}</span></label>`;
+        li.querySelector("input").addEventListener("change",ev=>toggle(k,ev.target.checked,li,tr,head));
+        ul.appendChild(li);
+      });
+      cat.appendChild(ul);box.appendChild(cat);
+    });
+    if(!readOnly){
+      const rb=el("button","reset","Ryd afkrydsning for "+tr.t);rb.type="button";rb.id="reset_"+tr.id;
+      rb.addEventListener("click",()=>resetTrip(tr));
+      const wrap=el("div");wrap.style.marginTop="12px";wrap.appendChild(rb);box.appendChild(wrap);
+    }
+    v.appendChild(box);
+  });
+}
+async function toggle(k,on,li,tr,head){
+  if(on)checked.add(k);else checked.delete(k);
+  li.classList.toggle("checked",on);
+  updateCount(tr,head);
+  if(db){
+    try{const ref=db.doc("checks/"+k); if(on) await ref.set({done:true}); else await ref.delete();}
+    catch(e){ if(e&&e.code==="invalid_argument"){readOnly=true;renderShop()} }
+  } else saveLocal();
+}
+function updateCount(tr,head){
+  let total=0,done=0;
+  tr.cats.forEach(([c,items])=>items.forEach(([n])=>{total++;if(checked.has(keyOf(tr.id,c,n)))done++}));
+  head.querySelector(".count").textContent=done+"/"+total;
+}
+async function resetTrip(tr){
+  const keys=[];tr.cats.forEach(([c,items])=>items.forEach(([n])=>{const k=keyOf(tr.id,c,n);if(checked.has(k))keys.push(k)}));
+  keys.forEach(k=>checked.delete(k));renderShop();
+  if(db){for(const k of keys){try{await db.doc("checks/"+k).delete()}catch(e){}}} else saveLocal();
+}
+
+loadLocal();renderShop();
+(async()=>{
+  try{
+    if(!window.claude||!window.claude.use)return;
+    const d=await window.claude.use("db");
+    if(!d)return;
+    db=d;checked.clear();renderShop();
+    db.collection("checks").onSnapshot(snap=>{
+      checked.clear();snap.docs.forEach(doc=>{if(doc.exists)checked.add(doc.id)});
+      const ae=document.activeElement&&document.activeElement.id;
+      renderShop();
+      if(ae){const f=document.getElementById(ae);if(f)f.focus({preventScroll:true})}
+    },()=>{});
+  }catch(e){}
+})();
+
+try{const v=localStorage.getItem("mp-view");if(v&&["plan","shop","rec","bar"].includes(v))showView(v)}catch(e){}
+if(location.hash){const id=location.hash.slice(1);if(R[id])openRecipe(id);else if(["plan","shop","rec","bar"].includes(id))showView(id)}
+</script>
+
+</body>
+</html>
