@@ -97,6 +97,19 @@ summary .m{font-size:.82rem;color:var(--muted);white-space:nowrap}
   <header class="top">
     <h1>Madplan efterår 2026</h1>
     <p class="sub">13. oktober til 15. november · to voksne og en baby · Madbogen v1.4</p>
+    <p class="sub" id="opdateret" hidden></p>
+    <script>
+    // Viser hvornår siden sidst blev lagt op, ud fra serverens Last-Modified
+    (function(){
+      try{
+        var d=new Date(document.lastModified);
+        if(isNaN(d)||Math.abs(Date.now()-d)<3000)return; // intet header: browseren giver bare "nu"
+        var t=d.toLocaleString("da-DK",{weekday:"long",day:"numeric",month:"long",hour:"2-digit",minute:"2-digit"});
+        var el=document.getElementById("opdateret");
+        el.textContent="Sidst opdateret "+t;el.hidden=false;
+      }catch(e){}
+    })();
+    </script>
   </header>
   <nav class="tabs" role="tablist">
     <button role="tab" id="t-plan" aria-selected="true" data-view="plan">Plan</button>
